@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{{ super() }}
+
+<div class="container mt-1">
+    {% if vacancy|length > 0 %}
+        <h2>Были подобраны следующие вакансии:</h2>
+        {% for el in vacancy %}
+            <div class="alert alert-info">
+            <p><b>{{ el.vac_name}}</b></p>
+            <p>Coef: {{ el.low_rate }}</p>
+            <a class="btn btn-warning" href={{ el.link }}>Детальнее</a>
+            </div>
+        {% endfor %}
+    {% else %}
+        <h2> Поиск не нашёл подходящих вакансий </h2>
+    {% endif %}
+</div>
+
+{% endblock %}

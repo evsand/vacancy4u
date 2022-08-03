@@ -23,11 +23,11 @@ def get_link_resume(link):
                     .find_all('span')])
             tags = [tag.text for tag in soup.find(attrs={"class": "bloko-tag-list"}).find_all(
                 "div", attrs={"class": "bloko-tag bloko-tag_inline bloko-tag_countable"})]
-            resume = {'vacancy': name_vac.text, 'exp': exps, 'tags': tags}
+            res_resume = {'vacancy': name_vac.text, 'exp': exps, 'tags': tags}
 
     except Exception as e:
         print(f"ERROOOOOR {e}")
-    return resume
+    return res_resume
 
 
 def get_links(resume):
@@ -80,7 +80,7 @@ def get_links(resume):
             else: 
                 print('!=200')
         except Exception as e:
-            print(f"ERROOOOOR {e}")
+            print(f"Ошибочка вышла {e}")
         time.sleep(1)
 
 
@@ -119,8 +119,8 @@ def get_vacancy(link, resume):
     resume = {
         "name": name,
         "salary": salary,
-        "tags": tags,
+        "tags": tuple(tags),
         "link": link,
-        "lrate": lrate
+        "lrate": lrate,
     }
     return resume

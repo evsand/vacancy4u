@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% for cat, msg in get_flashed_messages(True) %}
+<div class="flash {{cat}}">{{msg}}</div>
+{% endfor %}
+<div class="container mt-5">
+    <h1>Поиск ваканский</h1>
+    <h2>Введите ссылку на Ваше резюме</h2>
+    <form method="post">
+        <input type="text" name="link_resume" class="form control" placeholder="Введите ссылку на Ваше резюме">
+        <br>
+        <input type="submit" class="btn btn-success" value="Отправить">
+    </form>
+</div>
+
+{% endblock %}

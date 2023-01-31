@@ -1,0 +1,36 @@
+version: "3.9"
+
+services:
+  v4u:
+    build: .
+    ports:
+      - "5000:5000"
+    command: ["/bin/bash", "scripts/run_flask.sh"]
+    volumes:
+      - .:/app
+    depends_on:
+      - rabbit
+
+  rabbit:
+    hostname: rabbit
+    image: "rabbitmq:3-management"
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=mypass
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: parse_worker
+    volumes:
+      - .:/app
+    links:
+      - rabbit
+    depends_on:
+      - rabbit
+      - v4u
+    command: ["/bin/bash", "scripts/run_workers.sh"]

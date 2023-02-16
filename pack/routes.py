@@ -53,7 +53,8 @@ def task_status(task_id):
         if 'result' in task.info:
             #response['result'] = task.info['result']
             vacancy = task.info['result']
-            return jsonify({'result': 'Ready','htmlresponse': render_template('find.html', vacancy=vacancy)})
+            return jsonify({'result': 'Ready',
+                            'htmlresponse': render_template('find.html', vacancy=vacancy)})
     else:
         # something went wrong in the background job
         response = {
